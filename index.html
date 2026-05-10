@@ -115,11 +115,13 @@ nav::after {
   opacity: 0.6;
 }
 .nav-logo {
-  font-family: var(--display);
-  font-size: 1.1rem; font-weight: 900;
-  color: var(--cyan);
-  letter-spacing: 0.1em;
-  text-shadow: var(--glow);
+  display: flex; align-items: center;
+  transition: filter 0.25s, transform 0.25s;
+  filter: drop-shadow(0 0 8px rgba(0,200,255,0.5));
+}
+.nav-logo:hover {
+  filter: drop-shadow(0 0 16px rgba(0,255,208,0.8));
+  transform: scale(1.08);
 }
 .nav-logo span { color: var(--teal2); }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -689,7 +691,37 @@ a, button { cursor: pointer; }
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">M<span>S</span>://</div>
+  <a href="#home" class="nav-logo" title="Manish Srivastava">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer hex border -->
+      <polygon points="22,2 40,12 40,32 22,42 4,32 4,12"
+        fill="none" stroke="url(#hexGrad)" stroke-width="1.5" opacity="0.9"/>
+      <!-- Inner hex -->
+      <polygon points="22,7 36,15 36,29 22,37 8,29 8,15"
+        fill="url(#hexFill)" opacity="0.15"/>
+      <!-- M letter -->
+      <text x="22" y="27" text-anchor="middle"
+        font-family="Orbitron, monospace" font-weight="900"
+        font-size="16" fill="url(#textGrad)" letter-spacing="0">MS</text>
+      <!-- Corner ticks -->
+      <line x1="22" y1="2" x2="22" y2="6" stroke="#00ffd0" stroke-width="1.5"/>
+      <line x1="22" y1="38" x2="22" y2="42" stroke="#00ffd0" stroke-width="1.5"/>
+      <defs>
+        <linearGradient id="hexGrad" x1="4" y1="2" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#00c8ff"/>
+          <stop offset="100%" stop-color="#00ffd0"/>
+        </linearGradient>
+        <linearGradient id="hexFill" x1="4" y1="2" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#00c8ff"/>
+          <stop offset="100%" stop-color="#00ffd0"/>
+        </linearGradient>
+        <linearGradient id="textGrad" x1="0" y1="0" x2="44" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#00c8ff"/>
+          <stop offset="100%" stop-color="#00ffd0"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </a>
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
