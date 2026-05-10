@@ -130,7 +130,7 @@ nav::after {
   color: var(--muted); transition: color 0.2s, text-shadow 0.2s;
 }
 .nav-links a:hover { color: var(--cyan2); text-shadow: 0 0 12px var(--cyan); }
-.nav-links a::before { content: '// '; color: var(--teal); opacity: 0.5; }
+.nav-links a::before { content: ''; }
 .nav-resume {
   padding: 0.4rem 1.2rem;
   border: 1px solid var(--cyan);
@@ -1416,13 +1416,30 @@ if (span) {
 ══════════════════════════════════ */
 const secs = document.querySelectorAll('section[id]');
 const navAs = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
+
+function updateNav() {
+  const scrollY = window.scrollY;
+  const winH = window.innerHeight;
+  const docH = document.documentElement.scrollHeight;
   let cur = '';
-  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+
+  if (scrollY + winH >= docH - 10) {
+    cur = [...secs].at(-1).id;
+  } else {
+    secs.forEach(s => {
+      if (scrollY >= s.offsetTop - winH * 0.35) cur = s.id;
+    });
+  }
+
   navAs.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--cyan2)' : '';
+    const active = a.getAttribute('href') === '#' + cur;
+    a.style.color = active ? 'var(--cyan2)' : '';
+    a.style.textShadow = active ? '0 0 12px var(--cyan)' : '';
   });
-}, { passive: true });
+}
+
+window.addEventListener('scroll', updateNav, { passive: true });
+window.addEventListener('load', updateNav);
 </script>
 </body>
 </html>
